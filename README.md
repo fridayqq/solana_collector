@@ -20,7 +20,7 @@
 ## ✨ Features
 
 - **💰 Balance Checker** (`checker.py`): Monitor SOL balances across Phantom and Magic Eden wallets with USD values
-- **📤 Bulk Collector** (`collector.py`): Automatically collect and transfer SOL from multiple wallets to recipients
+- **📤 Bulk Collector** (`sender.py`): Automatically collect and transfer SOL from multiple wallets to recipients
 - **💵 Real-time USD Conversion**: Fetches current SOL prices from CoinGecko for accurate value calculation
 - **📊 Transaction Monitoring**: Comprehensive tracking with Solscan integration and success rates
 - **🔧 Multi-Wallet Support**: Supports both Phantom and Magic Eden derivation paths
@@ -76,10 +76,10 @@ python checker.py
 
 ### 💸 Collect SOL
 
-Run the collector to automatically gather SOL from multiple wallets:
+Run the sender to automatically gather SOL from multiple wallets:
 
 ```bash
-python collector.py
+python sender.py
 ```
 
 **Features:**
@@ -95,18 +95,17 @@ python collector.py
 > - 🚫 Never share your seed phrases with anyone
 > - 🔒 Keep `seed.txt` and `to_send.txt` files secure and private
 > - 🧪 Test with small amounts on devnet before mainnet operations
-> - ✅ Always verify recipient addresses before running collector
+> - ✅ Always verify recipient addresses before running sender
 > - 🛡️ Files containing seed phrases are automatically ignored by Git
 
 ## 📁 File Structure
 
 ```
-solana_garbage_collector/
+solana_collector/
 ├── 📖 README.md              # This documentation
 ├── 📦 requirements.txt       # Python dependencies
 ├── 📊 checker.py            # Balance checking utility
-├── 🧹 collector.py          # Main SOL collection script
-├── 📤 sender.py             # Alternative sender script
+├── 📤 sender.py             # SOL sender script
 ├── 🔑 seed.txt              # Your seed phrases (ignored by Git)
 ├── 📋 to_send.txt           # Transfer instructions (ignored by Git)
 └── 🛡️ .gitignore            # Protects sensitive files
@@ -165,7 +164,7 @@ Account 1 | Address: 5Ky8Vb...mNp7 | Balance: 0.000000 SOL ($0.00)
 ОБЩАЯ СУММА: 0.185812 SOL ($15.88)
 ```
 
-### 🧹 SOL Collector
+### 🧹 SOL sender
 ```
 🚀 Начинаем обработку 2 кошельков...
 
