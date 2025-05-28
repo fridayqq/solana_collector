@@ -1,0 +1,15 @@
+# Solana blockchain interaction
+solana==0.30.2
+solders==0.18.1
+
+# Cryptography and key derivation
+mnemonic==0.20
+bip32==3.4
+nacl==1.5.0
+base58==2.1.1
+
+# HTTP requests for price data
+requests==2.31.0
+
+# Core cryptography
+cryptography==41.0.7

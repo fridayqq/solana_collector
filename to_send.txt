@@ -1,0 +1,2 @@
+seed1;recipient1
+seed2;recipient2
