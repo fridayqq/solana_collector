@@ -1,6 +1,6 @@
 <div align="center">
 
-# 🧹 Solana Garbage Collector
+# 🧹 Solana Collector
 
 [![Python](https://img.shields.io/badge/Python-3.7+-blue.svg?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org/)
 [![Solana](https://img.shields.io/badge/Solana-Mainnet-purple.svg?style=for-the-badge&logo=solana&logoColor=white)](https://solana.com/)
