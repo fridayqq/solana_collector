@@ -1,136 +1,128 @@
+<div align="center">
+
 # 🧹 Solana Garbage Collector
 
-A powerful Python tool for collecting and consolidating SOL tokens from multiple wallet addresses derived from seed phrases. Perfect for cleaning up scattered funds across Phantom wallet and Magic Eden accounts.
+[![Python](https://img.shields.io/badge/Python-3.7+-blue.svg?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org/)
+[![Solana](https://img.shields.io/badge/Solana-Mainnet-purple.svg?style=for-the-badge&logo=solana&logoColor=white)](https://solana.com/)
+[![License](https://img.shields.io/badge/License-MIT-green.svg?style=for-the-badge)](LICENSE)
+[![Status](https://img.shields.io/badge/Status-Active-success.svg?style=for-the-badge)](https://github.com/fridayqq/solana_collector)
 
-## 🎯 Project Overview
+**🚀 A powerful Python toolkit for collecting and consolidating SOL tokens across multiple wallet addresses**
 
-```mermaid
-graph TD
-    A[📝 Seed Phrases] --> B[🔍 Address Discovery]
-    B --> C[👻 Phantom Wallet]
-    B --> D[🎨 Magic Eden Accounts 0-4]
-    C --> E[💰 Balance Check]
-    D --> E
-    E --> F{Balance > MIN?}
-    F -->|Yes| G[💸 Transfer SOL]
-    F -->|No| H[⏭️ Skip Address]
-    G --> I[✅ Transaction Success]
-    G --> J[❌ Transaction Failed]
-    I --> K[📊 Update Stats]
-    J --> K
-    K --> L[🔗 Solscan Link]
-```
+[![Made with ❤️](https://img.shields.io/badge/Made%20with-❤️-red.svg?style=flat-square)](https://github.com/fridayqq)
+[![SOL](https://img.shields.io/badge/Token-SOL-blue.svg?style=flat-square)](https://coinmarketcap.com/currencies/solana/)
+[![Blockchain](https://img.shields.io/badge/Blockchain-Solana-purple.svg?style=flat-square)](https://explorer.solana.com/)
 
-## 🏗️ Architecture Flow
+---
 
-```mermaid
-sequenceDiagram
-    participant U as User
-    participant C as Collector
-    participant S as Solana RPC
-    participant R as Recipient
-    
-    U->>C: Load seed phrases
-    U->>C: Start collection
-    
-    loop For each seed phrase
-        C->>S: Derive addresses
-        C->>S: Check balances
-        alt Balance > MIN_BALANCE
-            C->>S: Create transaction
-            C->>S: Send SOL
-            S->>R: Transfer complete
-            C->>U: Show success ✅
-        else
-            C->>U: Skip (low balance) ⏭️
-        end
-    end
-    
-    C->>U: Final statistics 📊
-```
+</div>
 
 ## ✨ Features
 
-- 🔍 **Multi-wallet scanning**: Checks both Phantom and Magic Eden wallet addresses
-- 💸 **Automated transfers**: Sends all available SOL to specified recipient addresses
-- 📊 **Real-time statistics**: Tracks successful/failed transactions and total SOL sent
-- 🔗 **Solscan integration**: Provides direct links to transaction details
-- ⏱️ **Rate limiting**: Configurable delays to avoid RPC throttling
-- 💰 **Price tracking**: Shows USD values using live SOL prices
-- 🛡️ **Error handling**: Robust error handling with retry mechanisms
+- **💰 Balance Checker** (`checker.py`): Monitor SOL balances across Phantom and Magic Eden wallets with USD values
+- **📤 Bulk Collector** (`collector.py`): Automatically collect and transfer SOL from multiple wallets to recipients
+- **💵 Real-time USD Conversion**: Fetches current SOL prices from CoinGecko for accurate value calculation
+- **📊 Transaction Monitoring**: Comprehensive tracking with Solscan integration and success rates
+- **🔧 Multi-Wallet Support**: Supports both Phantom and Magic Eden derivation paths
+- **⚡ Smart Fee Management**: Automatically reserves SOL for rent exemption and transaction fees
 
-## 📁 Project Structure
+## 📋 Prerequisites
 
-```
-solana_garbage_collector/
-├── 📄 README.md                 # This file
-├── 📋 requirements.txt          # Python dependencies
-├── 📤 sender.py               # Sender script
-├── 🔍 checker.py              # Balance checking utility
-├── 🌱 seed.txt                # Your seed phrases (one per line)
-└── 📮 to_send.txt             # Seed phrase and recipient pairs
-```
+- ![Python](https://img.shields.io/badge/Python-3.7+-blue?logo=python&logoColor=white) Python 3.7+
+- ![Internet](https://img.shields.io/badge/Internet-Connection-green) Active internet connection
+- ![Wallet](https://img.shields.io/badge/Wallet-Seed_Phrases-orange) Valid Solana seed phrases
 
-## 🚀 Quick Start
+## 🚀 Installation
 
-### 1. Installation
-
+1. Clone or download this repository
+2. Install required dependencies:
 ```bash
-# Clone or download the project
-git clone <your-repo-url>
-cd solana_garbage_collector
-
-# Install dependencies
 pip install -r requirements.txt
 ```
 
-### 2. Configuration
+## ⚙️ Configuration
 
-Create your input files:
+### For Balance Checking
 
-**seed.txt** - List your seed phrases (one per line):
+Create a `seed.txt` file with your seed phrases (one per line):
 ```
-your first seed phrase here
-your second seed phrase here
-```
-
-**to_send.txt** - Map seed phrases to recipient addresses:
-```
-your first seed phrase here;9WzDXwBbmkg8ZTbNMqUxvQRAyrZzDsGYdLVL9zYtAWWM
-your second seed phrase here;9WzDXwBbmkg8ZTbNMqUxvQRAyrZzDsGYdLVL9zYtAWWM
+your first twelve word seed phrase here for wallet one
+your second twelve word seed phrase here for wallet two
 ```
 
-### 3. Usage Workflow
+### For SOL Collection
 
-```mermaid
-graph LR
-    A[📁 Setup Files] --> B[🔍 Check Balances]
-    B --> C{Found SOL?}
-    C -->|Yes| D[🚀 Run Collector]
-    C -->|No| E[😴 Nothing to do]
-    D --> F[📊 View Results]
-    
-    style A fill:#e1f5fe
-    style B fill:#f3e5f5
-    style D fill:#e8f5e8
-    style F fill:#fff3e0
+Create a `to_send.txt` file with sender seed phrases and recipient addresses:
+```
+sender_seed_phrase_1;recipient_solana_address_1
+sender_seed_phrase_2;recipient_solana_address_2
 ```
 
-#### Check Balances First
+## 📖 Usage
+
+### 📊 Check Balances
+
+Run the balance checker to see SOL balances across all wallet types:
+
 ```bash
 python checker.py
 ```
-This will show you all balances across Phantom and Magic Eden wallets with USD values.
 
-#### Collect and Send SOL
+**Output includes:**
+- 👻 Phantom wallet addresses and balances
+- 🎨 Magic Eden accounts (0-4) with individual balances
+- 💰 SOL amounts in both tokens and USD value
+- 📈 Total portfolio summary
+
+### 💸 Collect SOL
+
+Run the collector to automatically gather SOL from multiple wallets:
+
 ```bash
 python collector.py
 ```
-This will automatically collect SOL from all discovered addresses and send to recipients.
 
-## 🔧 Configuration Options
+**Features:**
+- 🧮 Automatically calculates sendable amount (balance - commission for fees)
+- 🔧 Handles rent exemption requirements
+- 🔗 Provides transaction hashes and Solscan explorer links
+- ⏱️ Real-time transaction confirmation monitoring
+- 📊 Comprehensive statistics tracking
 
-Edit the constants in `collector.py`:
+## 🔐 Security Considerations
+
+> ⚠️ **Important Security Notes:**
+> - 🚫 Never share your seed phrases with anyone
+> - 🔒 Keep `seed.txt` and `to_send.txt` files secure and private
+> - 🧪 Test with small amounts on devnet before mainnet operations
+> - ✅ Always verify recipient addresses before running collector
+> - 🛡️ Files containing seed phrases are automatically ignored by Git
+
+## 📁 File Structure
+
+```
+solana_garbage_collector/
+├── 📖 README.md              # This documentation
+├── 📦 requirements.txt       # Python dependencies
+├── 📊 checker.py            # Balance checking utility
+├── 🧹 collector.py          # Main SOL collection script
+├── 📤 sender.py             # Alternative sender script
+├── 🔑 seed.txt              # Your seed phrases (ignored by Git)
+├── 📋 to_send.txt           # Transfer instructions (ignored by Git)
+└── 🛡️ .gitignore            # Protects sensitive files
+```
+
+## 🌐 Network Configuration
+
+| Parameter | Value |
+|-----------|-------|
+| 🌍 **RPC Endpoint** | `https://api.mainnet-beta.solana.com` |
+| 📈 **Price API** | `https://api.coingecko.com/api/v3/simple/price` |
+| 🔍 **Explorer** | `https://solscan.io` |
+| ⏱️ **Rate Limiting** | 0.5s between requests |
+
+
+## 🛠️ Configuration Options
 
 ```python
 NUM_ACCOUNTS = 5        # Number of Magic Eden accounts to check
@@ -139,47 +131,51 @@ COMMISSION = 0.001      # Amount to leave for rent exemption (SOL)
 WALLET_PAUSE = 3        # Pause between wallets (seconds)
 ```
 
-## 📊 Address Types Supported
+## 🛠️ Error Handling
 
-```mermaid
-graph TB
-    A[🌱 Seed Phrase] --> B[🔑 BIP44 Derivation]
-    B --> C[👻 Phantom<br/>m/44'/501'/0'/0']
-    B --> D[🎨 Magic Eden 0<br/>m/44'/501'/0'/0/0]
-    B --> E[🎨 Magic Eden 1<br/>m/44'/501'/1'/0/0]
-    B --> F[🎨 Magic Eden 2<br/>m/44'/501'/2'/0/0]
-    B --> G[🎨 Magic Eden 3<br/>m/44'/501'/3'/0/0]
-    B --> H[🎨 Magic Eden 4<br/>m/44'/501'/4'/0/0]
-    
-    style A fill:#ffeb3b
-    style C fill:#9c27b0
-    style D fill:#ff5722
-    style E fill:#ff5722
-    style F fill:#ff5722
-    style G fill:#ff5722
-    style H fill:#ff5722
+The tools include comprehensive error handling for:
+- ❌ Invalid seed phrases or malformed addresses
+- 🌐 Network connectivity issues and RPC timeouts
+- 💸 Insufficient balances for transfers
+- 🔄 Transaction failures and confirmation errors
+- ⏱️ API rate limits and retry mechanisms
+
+## ⛽ Transaction Economics
+
+| Parameter | Typical Value |
+|-----------|---------------|
+| 🏃‍♂️ **Transaction Fee** | ~0.000005 SOL |
+| 💰 **Rent Exemption** | ~0.00203928 SOL |
+| 📊 **Reserved Amount** | 0.001 SOL (configurable) |
+| 🛡️ **Safety Buffer** | Prevents account closure |
+
+## 📄 Example Output
+
+### 📊 Balance Checker
+```
+Текущий курс SOL: $85.42
+
+=== Сидка #1: example seed phrase words here ===
+Phantom Address: 9WzDXw...tAWWM | Balance: 0.156789 SOL ($13.40)
+Account 0 | Address: 3HNXQt...yssh | Balance: 0.029023 SOL ($2.48)
+Account 1 | Address: 5Ky8Vb...mNp7 | Balance: 0.000000 SOL ($0.00)
+Сумма по сидке: 0.185812 SOL ($15.88)
+
+==================================================
+ОБЩАЯ СУММА: 0.185812 SOL ($15.88)
 ```
 
-## 🛡️ Security Features
-
-- ✅ Rent exemption protection (leaves small amount for account rent)
-- ✅ Transaction confirmation checking
-- ✅ Proper error handling and retries
-- ✅ Rate limiting to prevent RPC throttling
-
-## 📈 Sample Output
-
+### 🧹 SOL Collector
 ```
 🚀 Начинаем обработку 2 кошельков...
 
 📝 Кошелек 1/2
-Сидка: 
-Recipient: 
+Recipient: 9WzD...WWM
 
-Phantom  | Address:  | Balance: 0.029023 SOL
-   Отправляем 0.028023 SOL на  (Phantom)...
-   ✅ Транзакция успешна: 
-   Solscan: https://solscan.io/tx/
+Phantom  | Address: 3HNXQTX...vBaRdMBryssh | Balance: 0.029023 SOL
+   Отправляем 0.028023 SOL (Phantom)...
+   ✅ Транзакция успешна: 2Cnbe4B2mKYav...dJm2
+   Solscan: https://solscan.io/tx/2Cnbe4B2mKYav...dJm2
 
 ============================================================
 📊 ИТОГОВАЯ СТАТИСТИКА
@@ -192,31 +188,31 @@ Phantom  | Address:  | Balance: 0.029023 SOL
 ============================================================
 ```
 
-## 💡 Process Visualization
+## 🔗 Useful Resources
 
-```mermaid
-pie title Transaction Results
-    "Successful Transfers" : 85
-    "Failed Transfers" : 10
-    "Skipped (Low Balance)" : 5
-```
+- 📚 [Solana Documentation](https://docs.solana.com/)
+- 🔍 [Solscan Explorer](https://solscan.io/)
+- 👻 [Phantom Wallet](https://phantom.app/)
+- 🎨 [Magic Eden](https://magiceden.io/)
+- 💰 [CoinGecko API](https://www.coingecko.com/en/api)
 
-## ⚠️ Important Notes
+---
 
-- **Testnet vs Mainnet**: Currently configured for Solana mainnet. Change RPC_URL for testnet.
-- **Gas Fees**: Each transaction costs ~0.000005 SOL in fees.
-- **Rent Exemption**: Solana accounts need ~0.00203928 SOL for rent exemption.
-- **Rate Limits**: Free RPC endpoints have rate limits. Consider using paid RPC for heavy usage.
+<div align="center">
 
-## 🔗 Useful Links
+## 📜 Disclaimer
 
-- [Solana Documentation](https://docs.solana.com/)
-- [Solscan Explorer](https://solscan.io/)
-- [Phantom Wallet](https://phantom.app/)
-- [Magic Eden](https://magiceden.io/)
+**This software is provided "as is" without warranty. Users are responsible for:**
 
-## 📝 License
+🔐 Securing their seed phrases • ✅ Verifying transaction details • ⛽ Understanding Solana network fees • 📋 Complying with applicable regulations
 
-This project is for educational purposes. Use responsibly and ensure you have proper authorization for all wallet addresses being accessed.
+**⚠️ Use at your own risk. Always test with small amounts first.**
 
-**⚠️ Disclaimer**: Always test with small amounts first. This tool handles real cryptocurrency transactions. Use at your own risk.
+---
+
+Made with ❤️ for the Solana community
+
+[![GitHub](https://img.shields.io/badge/GitHub-Follow-black?style=social&logo=github)](https://github.com/fridayqq)
+[![Solana](https://img.shields.io/badge/Solana-Explorer-purple?style=social&logo=solana)](https://explorer.solana.com/)
+
+</div>
